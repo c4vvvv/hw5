@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四月返鄉氣候</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <style>
+      /* 整體頁面樣式 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    width: 100%;  /* 設置body寬度為100% */
+}
+
+/* 標題 */
+h2 {
+    text-align: left;
+    margin-left: 30px;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+/* 讓圖表容器置中並加寬 */
+#chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;  /* 設置容器寬度為100% */
+    height: 80vh;
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 設置圖表寬度並限制最大寬度 */
+#weatherChart {
+    width: 100%;  /* 設置圖表寬度為100% */
+    max-width: 1500px;  /* 設定最大寬度為1500px */
+    height: 100%;  /* 讓圖表高度自適應 */
+}
+
+/* 標題樣式 */
+.highcharts-title {
+    text-align: left;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+/* 副標題樣式 */
+.highcharts-subtitle {
+    text-align: left;
+    font-size: 35px;
+}
+
+/* 圖例樣式 */
+.highcharts-legend {
+    align: left;
+    vertical-align: middle;
+}
+          /* 設定頁面全高 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* 使內容區域和按鈕保持間隔 */
+        }
+
+       /* 按鈕置左並放置在底部 */
+.bottom-button {
+    display: flex;
+    justify-content: flex-start; /* 按鈕置左 */
+    align-items: center;
+    position: fixed;
+    bottom: 20px; /* 距離底部20px */
+    left: 20px; /* 距離左邊20px，這樣按鈕會放在左下角 */
+    width: auto; /* 設置寬度為自動，按鈕根據內容調整 */
+}
+
+       /* 可愛風格按鈕 */
+.button {
+    padding: 15px 30px;  /* 統一內邊距 */
+    font-size: 18px;      /* 統一字型大小 */
+    background-color: #FFB6C1; /* 粉紅色 */
+    color: white;
+    border: none;
+    border-radius: 30px;  /* 圓角 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;  /* 使過渡效果更平滑 */
+    display: inline-block; /* 讓按鈕不會隨容器擴展 */
+    width: auto;  /* 根據內容自動調整寬度 */
+    min-width: 200px; /* 設置最小寬度，確保按鈕不會過小 */
+    text-align: center; /* 讓文字居中 */
+}
+
+/* 按鈕在 hover 時的效果 */
+.button:hover {
+    background-color: #FF69B4; /* 濃粉色 */
+    transform: scale(1.1);  /* 放大效果 */
+}
+
+/* 按鈕點擊效果 */
+.button:active {
+    transform: scale(0.98); /* 點擊時稍微縮小 */
+}
+    </style>
+    
+</head>
+<body>
+	 
+  <h2>四月返鄉氣候</h2>
+
+<div id="chart-container">
+    <div id="weatherChart"></div>
+</div>
+
+<script>
+    Highcharts.chart('weatherChart', {
+        chart: {
+            type: 'line',
+            backgroundColor: '#f4f4f4',  // 設置背景顏色，讓圖表更清爽
+        },
+        title: {
+            text: '每日天氣型態（1: 天晴, 2: 多雲, 3: 降雨, 4: 大降雨）',
+            align: 'left',
+            style: {
+                fontSize: '22px',
+                fontWeight: 'bold',
+                color: '#333'  // 深色文字
+            }
+        },
+        
+        xAxis: {
+            categories: Array.from({ length: 30 }, (_, i) => `4/${i + 1}`),
+            title: {
+                text: '日期'
+            },
+            labels: {
+                style: {
+                    color: '#333'  // 設置日期標籤顏色
+                }
+            }
+        },
+        yAxis: {
+            title: {
+                text: '天氣類型',
+                style: {
+                    color: '#333'  // Y 軸顏色
+                    
+                }
+            },
+            min: 1,
+            max: 4,
+            tickInterval: 1,
+            labels: {
+                formatter: function () {
+                    const weatherTypes = {1: '天晴', 2: '多雲', 3: '降雨', 4: '大降雨'};
+                    return weatherTypes[this.value] || this.value;
+                },
+                style: {
+                    color: '#333'  // Y 軸標籤顏色
+                }
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                const weatherTypes = {1: '天晴', 2: '多雲', 3: '降雨', 4: '大降雨'};
+                return `<b>${this.series.name}</b><br>${this.x}: ${weatherTypes[this.y]}`;
+            },
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',  // 提示框背景色
+            borderColor: '#aaa',  // 提示框邊框顏色
+            borderWidth: 1  // 提示框邊框寬度
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            title: {
+                text: '天氣類型',
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: '14px',
+                    color: '#333'
+                }
+            },
+            itemStyle: {
+                fontSize: '14px',
+                color: '#333'
+            }
+        },
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 1,
+                lineWidth: 2  // 設置折線寬度
+            }
+        },
+        series: [
+            {
+                name: '台中沙鹿',
+                data: [2, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 3, 1, 2, 2, 3, 1, 2, 3, 3, 4, 1, 1, 2, 3, 2, 1, 3, 2],
+                color: '#FF4500'
+            },
+            {
+                name: '嘉義太保',
+                data: [1, 2, 2, 3, 3, 4, 4, 3, 2, 1, 2, 2, 1, 1, 3, 3, 4, 2, 2, 3, 3, 3, 2, 1, 1, 4, 4, 3, 2, 1],
+                color: '#1E90FF'
+            },
+            {
+                name: '屏東楓港',
+                data: [3, 3, 2, 2, 1, 1, 1, 2, 2, 3, 4, 4, 4, 3, 3, 2, 1, 1, 3, 3, 4, 4, 3, 2, 1, 1, 2, 2, 3, 4],
+                color: '#32CD32'
+            }
+        ],
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+    });
+</script>
+
+     <div class="bottom-button">
+        <button class="button" onclick="window.location.href='wheather.html'">第二頁</button>
+    </div>
+</body>
+</html>

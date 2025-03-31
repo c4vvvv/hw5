@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四月天氣圖表</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/variable-pie.js"></script> 
+    <style>
+         /* 整體頁面樣式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* 使圖表容器置中 */
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+        /* 限制圖表寬度，避免過大 */
+        #container {
+            max-width: 800px;
+            width: 100%;
+        }
+        h3 {
+            text-align: center;
+            font-weight: bold;
+        }
+         /* 設定頁面全高 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* 使內容區域和按鈕保持間隔 */
+        }
+
+      /* 按鈕置左並放置在底部 */
+.bottom-button {
+    display: flex;
+    justify-content: flex-start; /* 按鈕置左 */
+    align-items: center;
+    position: fixed;
+    bottom: 20px; /* 距離底部20px */
+    left: 20px; /* 距離左邊20px，這樣按鈕會放在左下角 */
+    width: auto; /* 設置寬度為自動，按鈕根據內容調整 */
+}
+
+        /* 可愛風格按鈕 */
+.button {
+    padding: 15px 30px;  /* 統一內邊距 */
+    font-size: 18px;      /* 統一字型大小 */
+    background-color: #FFB6C1; /* 粉紅色 */
+    color: white;
+    border: none;
+    border-radius: 30px;  /* 圓角 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;  /* 使過渡效果更平滑 */
+    display: inline-block; /* 讓按鈕不會隨容器擴展 */
+    width: auto;  /* 根據內容自動調整寬度 */
+    min-width: 200px; /* 設置最小寬度，確保按鈕不會過小 */
+    text-align: center; /* 讓文字居中 */
+}
+
+/* 按鈕在 hover 時的效果 */
+.button:hover {
+    background-color: #FF69B4; /* 濃粉色 */
+    transform: scale(1.1);  /* 放大效果 */
+}
+
+/* 按鈕點擊效果 */
+.button:active {
+    transform: scale(0.98); /* 點擊時稍微縮小 */
+}
+    
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">四月返鄉氣候圖表</h2>
+
+    <!-- 台中沙鹿天氣圓餅圖 -->
+    <div class="chart-container">
+        
+        <div id="container1"></div>
+    </div>
+
+    <!-- 嘉義太保天氣圓餅圖 -->
+    <div class="chart-container">
+        
+        <div id="container2"></div>
+    </div>
+
+    <!-- 屏東楓港天氣圓餅圖 -->
+    <div class="chart-container">
+        
+        <div id="container3"></div>
+    </div>
+
+    <script>
+        // 台中沙鹿天氣圓餅圖
+        Highcharts.chart('container1', {
+            chart: {
+                type: 'variablepie'
+            },
+            title: {
+                text: '台中沙鹿四月天氣',
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: '22px'
+                }
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b>{point.name}</b><br/>天數: <b>{point.y}</b> 天<br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: '天氣分類',
+                borderRadius: 5,
+                data: [{
+                    name: '天晴',
+                    y: 10,
+                    z: 1
+                }, {
+                    name: '多雲',
+                    y: 8,
+                    z: 2
+                }, {
+                    name: '降雨',
+                    y: 7,
+                    z: 3
+                }, {
+                    name: '大降雨',
+                    y: 5,
+                    z: 4
+                }],
+                colors: ['#FFD700', '#C0C0C0', '#87CEEB', '#FF4500']
+            }]
+        });
+
+        // 嘉義太保天氣圓餅圖
+        Highcharts.chart('container2', {
+            chart: {
+                type: 'variablepie'
+            },
+            title: {
+                text: '嘉義太保四月天氣',
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: '22px'
+                }
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b>{point.name}</b><br/>天數: <b>{point.y}</b> 天<br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: '天氣分類',
+                borderRadius: 5,
+                data: [{
+                    name: '天晴',
+                    y: 9,
+                    z: 1
+                }, {
+                    name: '多雲',
+                    y: 10,
+                    z: 2
+                }, {
+                    name: '降雨',
+                    y: 8,
+                    z: 3
+                }, {
+                    name: '大降雨',
+                    y: 3,
+                    z: 4
+                }],
+                colors: ['#FFD700', '#C0C0C0', '#87CEEB', '#FF4500']
+            }]
+        });
+
+        // 屏東楓港天氣圓餅圖
+        Highcharts.chart('container3', {
+            chart: {
+                type: 'variablepie'
+            },
+            title: {
+                text: '屏東楓港四月天氣',
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: '22px'
+                }
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b>{point.name}</b><br/>天數: <b>{point.y}</b> 天<br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: '天氣分類',
+                borderRadius: 5,
+                data: [{
+                    name: '天晴',
+                    y: 8,
+                    z: 1
+                }, {
+                    name: '多雲',
+                    y: 7,
+                    z: 2
+                }, {
+                    name: '降雨',
+                    y: 10,
+                    z: 3
+                }, {
+                    name: '大降雨',
+                    y: 5,
+                    z: 4
+                }],
+                colors: ['#FFD700', '#C0C0C0', '#87CEEB', '#FF4500']
+            }]
+        });
+    </script>
+      
+
+     <div class="bottom-button">
+        <button class="button" onclick="window.location.href='index.html'">第一頁</button>
+</body>
+</html>
